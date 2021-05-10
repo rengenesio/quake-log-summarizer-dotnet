@@ -1,0 +1,5 @@
+# Set default behavior to automatically normalize line endings.
+*	text=auto
+
+# Improve diffs on C# code files
+*.cs text diff=csharp
