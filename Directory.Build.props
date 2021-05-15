@@ -1,0 +1,7 @@
+<Project>
+ <PropertyGroup>
+   <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+   <BaseOutputPath>$(SolutionDir)/build/$(MSBuildProjectName)/</BaseOutputPath>
+   <BaseIntermediateOutputPath>$(BaseOutputPath)/obj/</BaseIntermediateOutputPath>
+ </PropertyGroup>
+</Project>
