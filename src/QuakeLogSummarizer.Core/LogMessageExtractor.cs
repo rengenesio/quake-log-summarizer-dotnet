@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using NullGuard;
 
 namespace QuakeLogSummarizer.Core
 {
@@ -42,6 +43,7 @@ namespace QuakeLogSummarizer.Core
         /// <returns>
         /// The logged message data without the time prefix or 'null' if <paramref name="logRecord"/> doesn't match the expected format.
         /// </returns>
+        [return: AllowNull]
         public string Extract(string logRecord)
         {
             Match match = this._extractMessageDataRegex.Match(logRecord);
