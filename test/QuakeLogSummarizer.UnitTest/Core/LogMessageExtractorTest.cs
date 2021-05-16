@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using QuakeLogSummarizer.Core;
 using Xunit;
 
@@ -11,6 +12,16 @@ namespace QuakeLogSummarizer.UnitTest
         public LogMessageExtractorTest()
         {
             this._extractor = new LogMessageExtractor();
+        }
+
+        [Fact]
+        private void Extract_When_NullLogRecord_Should_ThrowArgumentNullException()
+        {
+            // Act
+            Action act = () => this._extractor.Extract(null);
+
+            // Assert
+            act.Should().ThrowExactly<ArgumentNullException>();
         }
 
         [Theory]
