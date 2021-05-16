@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E016D2A7-C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuakeLogSummarizer.UnitTest", "test\QuakeLogSummarizer.UnitTest\QuakeLogSummarizer.UnitTest.csproj", "{B03AF555-74AD-4D8F-90DC-81FEB832F0A2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuakeLogSummarizer.Core", "src\QuakeLogSummarizer.Core\QuakeLogSummarizer.Core.csproj", "{AE2F1D7C-34B9-4F92-B32E-661C6AA15BCA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,18 @@ Global
 		{B03AF555-74AD-4D8F-90DC-81FEB832F0A2}.Release|x64.Build.0 = Release|Any CPU
 		{B03AF555-74AD-4D8F-90DC-81FEB832F0A2}.Release|x86.ActiveCfg = Release|Any CPU
 		{B03AF555-74AD-4D8F-90DC-81FEB832F0A2}.Release|x86.Build.0 = Release|Any CPU
+		{AE2F1D7C-34B9-4F92-B32E-661C6AA15BCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE2F1D7C-34B9-4F92-B32E-661C6AA15BCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE2F1D7C-34B9-4F92-B32E-661C6AA15BCA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AE2F1D7C-34B9-4F92-B32E-661C6AA15BCA}.Debug|x64.Build.0 = Debug|Any CPU
+		{AE2F1D7C-34B9-4F92-B32E-661C6AA15BCA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AE2F1D7C-34B9-4F92-B32E-661C6AA15BCA}.Debug|x86.Build.0 = Debug|Any CPU
+		{AE2F1D7C-34B9-4F92-B32E-661C6AA15BCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE2F1D7C-34B9-4F92-B32E-661C6AA15BCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE2F1D7C-34B9-4F92-B32E-661C6AA15BCA}.Release|x64.ActiveCfg = Release|Any CPU
+		{AE2F1D7C-34B9-4F92-B32E-661C6AA15BCA}.Release|x64.Build.0 = Release|Any CPU
+		{AE2F1D7C-34B9-4F92-B32E-661C6AA15BCA}.Release|x86.ActiveCfg = Release|Any CPU
+		{AE2F1D7C-34B9-4F92-B32E-661C6AA15BCA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,6 +66,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{FD2594DF-CDAB-4C21-89F2-CC8DE2E3C412} = {C282870B-3AAF-4E04-B227-0118416C4A3C}
 		{B03AF555-74AD-4D8F-90DC-81FEB832F0A2} = {E016D2A7-C663-4478-A675-5292853B34FD}
+		{AE2F1D7C-34B9-4F92-B32E-661C6AA15BCA} = {C282870B-3AAF-4E04-B227-0118416C4A3C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4CD8CA92-CA96-43CE-9D05-A2C76DA0A0FC}
