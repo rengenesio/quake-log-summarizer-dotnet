@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using NullGuard;
 using QuakeLogSummarizer.Core.Extensions;
 
