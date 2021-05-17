@@ -7,25 +7,8 @@ using Xunit;
 
 namespace QuakeLogSummarizer.UnitTest.Core.LogMessageParser
 {
-    public sealed class InitGameLogMessageParserTest
+    public sealed class InitGameLogMessageParserTest : AbstractLogMessageParserTest<InitGameLogMessageParser, InitGameEvent>
     {
-        private readonly InitGameLogMessageParser _parser;
-
-        public InitGameLogMessageParserTest()
-        {
-            this._parser = new InitGameLogMessageParser();
-        }
-
-        [Fact]
-        private void Parse_When_NullLogMessage_Should_ThrowArgumentNullException()
-        {
-            // Act
-            Action act = () => this._parser.Parse(null);
-
-            // Assert
-            act.Should().ThrowExactly<ArgumentNullException>();
-        }
-
         [Theory]
         [InlineData(@"InitGame: ")]
         [InlineData(@"InitGame: game data")]
@@ -33,7 +16,7 @@ namespace QuakeLogSummarizer.UnitTest.Core.LogMessageParser
         private void Parse_When_ValidInitGameLogMessage_Should_ReturnInitGameEvent(string logMessage)
         {
             // Act
-            InitGameEvent actual = this._parser.Parse(logMessage);
+            InitGameEvent actual = base.Parser.Parse(logMessage);
 
             // Assert
             actual.Should().BeOfType<InitGameEvent>();
@@ -45,7 +28,7 @@ namespace QuakeLogSummarizer.UnitTest.Core.LogMessageParser
         private void Parse_When_NotClientConnectLogMessage_Should_ReturnNull(string logMessage)
         {
             // Act
-            InitGameEvent actual = this._parser.Parse(logMessage);
+            InitGameEvent actual = base.Parser.Parse(logMessage);
 
             // Assert
             actual.Should().BeNull();
