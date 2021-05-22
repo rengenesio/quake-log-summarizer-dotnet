@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using QuakeLogSummarizer.Core.GameEvents;
 using QuakeLogSummarizer.Core.Model;
 
@@ -24,6 +25,10 @@ namespace QuakeLogSummarizer.Core
                     {
                         Index = ++_gameIndex
                     });
+                    break;
+
+                case KillEvent:
+                    this.GameList.Last().KillCount++;
                     break;
             }
         }

@@ -35,6 +35,7 @@ namespace QuakeLogSummarizer.Application
                     services.AddSingleton<ILogMessageExtractor, LogMessageExtractor>()
                         .AddSingleton<ILogMessageParser, ClientConnectLogMessageParser>()
                         .AddSingleton<ILogMessageParser, InitGameLogMessageParser>()
+                        .AddSingleton<ILogMessageParser, KillLogMessageParser>()
                         .AddSingleton<LogSummarizer>());
         }
     }
