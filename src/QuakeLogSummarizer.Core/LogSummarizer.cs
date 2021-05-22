@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using QuakeLogSummarizer.Core.GameEvents;
 using QuakeLogSummarizer.Core.LogMessageParser;
 
 namespace QuakeLogSummarizer.Core
@@ -8,12 +11,12 @@ namespace QuakeLogSummarizer.Core
     public sealed class LogSummarizer
     {
         private readonly ILogMessageExtractor _logMessageExtractor;
-        private readonly InitGameLogMessageParser _initGameLogMessageParser;
+        private readonly IEnumerable<ILogMessageParser> _logMessageParserList;
 
-        public LogSummarizer(ILogMessageExtractor logMessageExtractor, InitGameLogMessageParser initGameLogMessageParser)
+        public LogSummarizer(ILogMessageExtractor logMessageExtractor, IEnumerable<ILogMessageParser> logMessageParserList)
         {
             this._logMessageExtractor = logMessageExtractor;
-            this._initGameLogMessageParser = initGameLogMessageParser;
+            this._logMessageParserList = logMessageParserList;
         }
 
         public async Task Summarize(string logFileFullname)
@@ -28,7 +31,15 @@ namespace QuakeLogSummarizer.Core
                 {
                     string logMessage = this._logMessageExtractor.Extract(logRecord);
 
-                    if(this._initGameLogMessageParser.Parse(logMessage) != null)
+                    if (logMessage == null)
+                    {
+                        continue;
+                    }
+
+                    IGameEvent gameEvent = this._logMessageParserList.Select(p => p.Parse(logMessage))
+                        .SingleOrDefault(e => e != null);
+
+                    if(gameEvent is InitGameEvent)
                     {
                         gameCount++;
                     }

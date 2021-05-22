@@ -7,7 +7,7 @@ using Xunit;
 
 namespace QuakeLogSummarizer.UnitTest.Core.LogMessageParser
 {
-    public sealed class InitGameLogMessageParserTest : AbstractLogMessageParserTest<InitGameLogMessageParser, InitGameEvent>
+    public sealed class InitGameLogMessageParserTest : AbstractLogMessageParserTest<InitGameLogMessageParser>
     {
         [Theory]
         [InlineData(@"InitGame: ")]
@@ -16,7 +16,7 @@ namespace QuakeLogSummarizer.UnitTest.Core.LogMessageParser
         private void Parse_When_ValidInitGameLogMessage_Should_ReturnInitGameEvent(string logMessage)
         {
             // Act
-            InitGameEvent actual = base.Parser.Parse(logMessage);
+            IGameEvent actual = base.Parser.Parse(logMessage);
 
             // Assert
             actual.Should().BeOfType<InitGameEvent>();
@@ -28,7 +28,7 @@ namespace QuakeLogSummarizer.UnitTest.Core.LogMessageParser
         private void Parse_When_NotClientConnectLogMessage_Should_ReturnNull(string logMessage)
         {
             // Act
-            InitGameEvent actual = base.Parser.Parse(logMessage);
+            IGameEvent actual = base.Parser.Parse(logMessage);
 
             // Assert
             actual.Should().BeNull();

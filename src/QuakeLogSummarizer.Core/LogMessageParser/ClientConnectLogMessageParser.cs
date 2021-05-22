@@ -3,7 +3,7 @@ using QuakeLogSummarizer.Core.GameEvents;
 
 namespace QuakeLogSummarizer.Core.LogMessageParser
 {
-    public sealed class ClientConnectLogMessageParser : AbstractLogMessageParser<ClientConnectEvent>
+    public sealed class ClientConnectLogMessageParser : AbstractLogMessageParser
     {
         protected override string LogMessageFormat => "ClientConnect: %i";
 

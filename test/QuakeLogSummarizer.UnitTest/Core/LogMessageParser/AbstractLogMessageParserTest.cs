@@ -6,8 +6,8 @@ using Xunit;
 
 namespace QuakeLogSummarizer.UnitTest.Core.LogMessageParser
 {
-    public abstract class AbstractLogMessageParserTest<TLogMessageParser, TEvent>
-        where TLogMessageParser : AbstractLogMessageParser<TEvent>, new()
+    public abstract class AbstractLogMessageParserTest<TLogMessageParser>
+        where TLogMessageParser : AbstractLogMessageParser, new()
     {
         protected IFixture Fixture { get; }
         

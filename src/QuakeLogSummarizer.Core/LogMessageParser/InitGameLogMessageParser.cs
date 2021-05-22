@@ -3,7 +3,7 @@ using QuakeLogSummarizer.Core.GameEvents;
 
 namespace QuakeLogSummarizer.Core.LogMessageParser
 {
-    public sealed class InitGameLogMessageParser : AbstractLogMessageParser<InitGameEvent>
+    public sealed class InitGameLogMessageParser : AbstractLogMessageParser
     {
         protected override string LogMessageFormat => "InitGame: %s";
 

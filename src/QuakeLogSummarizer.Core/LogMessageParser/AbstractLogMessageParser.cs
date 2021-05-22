@@ -1,26 +1,27 @@
 ﻿using System.Text.RegularExpressions;
 using NullGuard;
 using QuakeLogSummarizer.Core.Extensions;
+using QuakeLogSummarizer.Core.GameEvents;
 
 namespace QuakeLogSummarizer.Core.LogMessageParser
 {
-    public abstract class AbstractLogMessageParser<TEvent>
+    public abstract class AbstractLogMessageParser : ILogMessageParser
     {
-        private static Regex MessageFormatRegex;
+        private readonly Regex _messageFormatRegex;
 
         protected abstract string LogMessageFormat { get; }
 
         public AbstractLogMessageParser()
         {
-            MessageFormatRegex ??= this.LogMessageFormat.ToRegex();
+            this._messageFormatRegex = this.LogMessageFormat.ToRegex();
         }
 
         [return: AllowNull]
-        public TEvent Parse(string logMessage)
+        public IGameEvent Parse(string logMessage)
         {
-            TEvent parsedEvent = default(TEvent);
+            IGameEvent parsedEvent = null;
 
-            Match match = MessageFormatRegex.Match(logMessage);
+            Match match = this._messageFormatRegex.Match(logMessage);
             if (match.Success)
             {
                 parsedEvent = this.BuildEvent(match);
@@ -29,6 +30,6 @@ namespace QuakeLogSummarizer.Core.LogMessageParser
             return parsedEvent;
         }
 
-        protected abstract TEvent BuildEvent(Match match);
+        protected abstract IGameEvent BuildEvent(Match match);
     }
 }

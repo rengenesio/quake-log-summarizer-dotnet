@@ -6,7 +6,7 @@ using Xunit;
 
 namespace QuakeLogSummarizer.UnitTest.Core.LogMessageParser
 {
-    public sealed class ClientConnectLogMessageParserTest : AbstractLogMessageParserTest<ClientConnectLogMessageParser, ClientConnectEvent>
+    public sealed class ClientConnectLogMessageParserTest : AbstractLogMessageParserTest<ClientConnectLogMessageParser>
     {
         [Fact]
         private void Parse_When_ValidClientConnectLogMessage_Should_ReturnClientConnectEvent()
@@ -16,10 +16,11 @@ namespace QuakeLogSummarizer.UnitTest.Core.LogMessageParser
             string logMessage = $"ClientConnect: {expectedPlayerId}";
 
             // Act
-            ClientConnectEvent actual = base.Parser.Parse(logMessage);
+            IGameEvent actual = base.Parser.Parse(logMessage);
 
             // Assert
-            actual.PlayerId.Should().Be(expectedPlayerId);
+            actual.Should().BeOfType<ClientConnectEvent>()
+                .Which.PlayerId.Should().Be(expectedPlayerId);
         }
 
         [Theory]
@@ -29,7 +30,7 @@ namespace QuakeLogSummarizer.UnitTest.Core.LogMessageParser
         private void Parse_When_NotClientConnectLogMessage_Should_ReturnNull(string logMessage)
         {
             // Act
-            ClientConnectEvent actual = base.Parser.Parse(logMessage);
+            IGameEvent actual = base.Parser.Parse(logMessage);
 
             // Assert
             actual.Should().BeNull();

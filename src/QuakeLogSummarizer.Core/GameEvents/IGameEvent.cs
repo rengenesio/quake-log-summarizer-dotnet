@@ -1,6 +1,6 @@
 ﻿namespace QuakeLogSummarizer.Core.GameEvents
 {
-    public sealed class InitGameEvent : IGameEvent
+    public interface IGameEvent
     {
     }
 }
