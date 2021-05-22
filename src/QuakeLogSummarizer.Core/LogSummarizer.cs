@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using QuakeLogSummarizer.Core.GameEvents;
 using QuakeLogSummarizer.Core.LogMessageParser;
+using QuakeLogSummarizer.Core.Model;
+using QuakeLogSummarizer.Core.Output;
 
 namespace QuakeLogSummarizer.Core
 {
@@ -19,9 +22,9 @@ namespace QuakeLogSummarizer.Core
             this._logMessageParserList = logMessageParserList;
         }
 
-        public async Task Summarize(string logFileFullname)
+        public async Task<IEnumerable<Game>> Summarize(string logFileFullname)
         {
-            ulong gameCount = 0;
+            GameEventsProcessor gameEventsProcessor = new GameEventsProcessor();
 
             using (Stream stream = new FileStream(logFileFullname, FileMode.Open, FileAccess.Read))
             using (StreamReader reader = new StreamReader(stream))
@@ -39,14 +42,14 @@ namespace QuakeLogSummarizer.Core
                     IGameEvent gameEvent = this._logMessageParserList.Select(p => p.Parse(logMessage))
                         .SingleOrDefault(e => e != null);
 
-                    if(gameEvent is InitGameEvent)
+                    if (gameEvent != null)
                     {
-                        gameCount++;
+                        gameEventsProcessor.Process(gameEvent);
                     }
                 }
             }
 
-            Console.WriteLine(gameCount);
+            return gameEventsProcessor.GameList;
         }
     }
 }
