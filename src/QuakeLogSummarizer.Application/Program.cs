@@ -7,7 +7,7 @@ using Microsoft.Extensions.Hosting;
 using QuakeLogSummarizer.Core;
 using QuakeLogSummarizer.Core.LogMessageParser;
 using QuakeLogSummarizer.Core.Model;
-using QuakeLogSummarizer.Core.Output;
+using QuakeLogSummarizer.Core.Model.Output;
 
 namespace QuakeLogSummarizer.Application
 {

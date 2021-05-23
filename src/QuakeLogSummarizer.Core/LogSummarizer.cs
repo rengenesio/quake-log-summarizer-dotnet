@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 using QuakeLogSummarizer.Core.GameEvents;
 using QuakeLogSummarizer.Core.LogMessageParser;
 using QuakeLogSummarizer.Core.Model;
-using QuakeLogSummarizer.Core.Output;
 
 namespace QuakeLogSummarizer.Core
 {

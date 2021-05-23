@@ -9,11 +9,11 @@ namespace QuakeLogSummarizer.Core.Model
 
         public int KillCount { get; set; }
 
-        public IDictionary<int, IList<string>> PlayerMap { get; set; }
+        public IDictionary<int, PlayerData> PlayerMap { get; set; }
 
         public Game()
         {
-            this.PlayerMap = new Dictionary<int, IList<string>>();
+            this.PlayerMap = new Dictionary<int, PlayerData>();
         }
     }
 }
