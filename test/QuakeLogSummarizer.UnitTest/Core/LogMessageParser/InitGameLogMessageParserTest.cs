@@ -1,6 +1,4 @@
-﻿using System;
-using AutoFixture;
-using FluentAssertions;
+﻿using FluentAssertions;
 using QuakeLogSummarizer.Core.GameEvents;
 using QuakeLogSummarizer.Core.LogMessageParser;
 using Xunit;

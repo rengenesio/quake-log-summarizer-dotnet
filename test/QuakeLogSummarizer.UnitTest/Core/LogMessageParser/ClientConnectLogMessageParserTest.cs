@@ -25,6 +25,7 @@ namespace QuakeLogSummarizer.UnitTest.Core.LogMessageParser
 
         [Theory]
         [InlineData("ClientConnect: ")]
+        [InlineData("ClientConnect: 1 2")]
         [InlineData("ClientConnect: non-integer")]
         [InlineData("NotClientConnect: 1")]
         private void Parse_When_NotClientConnectLogMessage_Should_ReturnNull(string logMessage)

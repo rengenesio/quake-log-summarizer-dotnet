@@ -26,6 +26,9 @@ namespace QuakeLogSummarizer.UnitTest.Core.LogMessageParser
 
         [Theory]
         [InlineData("Kill: ")]
+        [InlineData("Kill: 1")]
+        [InlineData("Kill: 1 2")]
+        [InlineData("Kill: 1 2 3")]
         [InlineData("Kill: non-integer")]
         [InlineData("NotKill: 1")]
         private void Parse_When_NotKillLogMessage_Should_ReturnNull(string logMessage)
