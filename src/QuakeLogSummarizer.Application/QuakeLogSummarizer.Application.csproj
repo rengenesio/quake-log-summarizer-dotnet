@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\QuakeLogSummarizer.Core\QuakeLogSummarizer.Core.csproj" />
+    <ProjectReference Include="..\QuakeLogSummarizer.Infrastructure\QuakeLogSummarizer.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

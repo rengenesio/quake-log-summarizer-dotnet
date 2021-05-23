@@ -8,6 +8,7 @@ using QuakeLogSummarizer.Core;
 using QuakeLogSummarizer.Core.LogMessageParser;
 using QuakeLogSummarizer.Core.Model;
 using QuakeLogSummarizer.Core.Model.Output;
+using QuakeLogSummarizer.Infrastructure;
 
 namespace QuakeLogSummarizer.Application
 {
@@ -38,6 +39,7 @@ namespace QuakeLogSummarizer.Application
                         .AddSingleton<ILogMessageParser, ClientUserInfoChangedLogMessageParser>()
                         .AddSingleton<ILogMessageParser, KillLogMessageParser>()
                         .AddSingleton<LogSummarizer>()
+                        .AddScoped<LogFileReader>()
                         .AddScoped<GameEventsProcessor>());
         }
     }

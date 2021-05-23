@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using QuakeLogSummarizer.Core.GameEvents;
 using QuakeLogSummarizer.Core.LogMessageParser;
 using QuakeLogSummarizer.Core.Model;
+using QuakeLogSummarizer.Infrastructure;
 
 namespace QuakeLogSummarizer.Core
 {
@@ -25,13 +26,13 @@ namespace QuakeLogSummarizer.Core
         public async Task<IEnumerable<Game>> Summarize(string logFileFullname)
         {
             using IServiceScope scope = this._serviceScopeFactory.CreateScope();
-            using Stream stream = new FileStream(logFileFullname, FileMode.Open, FileAccess.Read);
-            using StreamReader reader = new StreamReader(stream);
+            using LogFileReader reader = scope.ServiceProvider.GetRequiredService<LogFileReader>();
 
             GameEventsProcessor gameEventsProcessor = scope.ServiceProvider.GetRequiredService<GameEventsProcessor>();
 
             string logRecord;
-            while ((logRecord = await reader.ReadLineAsync()) != null)
+            reader.BeginReadJob(logFileFullname);
+            while ((logRecord = await reader.ReadLogRecord()) != null)
             {
                 string logMessage = this._logMessageExtractor.Extract(logRecord);
 
