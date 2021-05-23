@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using QuakeLogSummarizer.Core.Model;
 
 namespace QuakeLogSummarizer.Core.Output
@@ -12,7 +13,7 @@ namespace QuakeLogSummarizer.Core.Output
                 this.Add($"game_{game.Index}", new
                 {
                     total_kills = game.KillCount,
-                    players = game.PlayerMap.Keys
+                    players = game.PlayerMap.Values.Select(p => p.First())
                 });
             }
         }
