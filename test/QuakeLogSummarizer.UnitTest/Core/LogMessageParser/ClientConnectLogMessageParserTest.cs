@@ -12,15 +12,15 @@ namespace QuakeLogSummarizer.UnitTest.Core.LogMessageParser
         private void Parse_When_ValidClientConnectLogMessage_Should_ReturnClientConnectEvent()
         {
             // Arrange
-            int expectedPlayerId = base.Fixture.Create<int>();
-            string logMessage = $"ClientConnect: {expectedPlayerId}";
+            ClientConnectEvent expectedClientConnectEvent = base.Fixture.Create<ClientConnectEvent>();
+            string logMessage = $"ClientConnect: {expectedClientConnectEvent.PlayerId}";
+            ClientConnectEvent @event = new ClientConnectEvent();
 
             // Act
             IGameEvent actual = base.Parser.Parse(logMessage);
 
             // Assert
-            actual.Should().BeOfType<ClientConnectEvent>()
-                .Which.PlayerId.Should().Be(expectedPlayerId);
+            actual.Should().BeEquivalentTo(expectedClientConnectEvent);
         }
 
         [Theory]

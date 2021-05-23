@@ -12,16 +12,15 @@ namespace QuakeLogSummarizer.UnitTest.Core.LogMessageParser
         private void Parse_When_ValidKillLogMessage_Should_ReturnKillEvent()
         {
             // Arrange
-            int expectedKillerId = base.Fixture.Create<int>();
-            int expectedVictimId = base.Fixture.Create<int>();
+            KillEvent expectedKillEvent = base.Fixture.Create<KillEvent>();
             
-            string logMessage = $"Kill: {expectedKillerId} {expectedVictimId} {base.Fixture.Create<int>()}: {base.Fixture.Create<string>()} killed {base.Fixture.Create<string>()} by {base.Fixture.Create<string>()}";
+            string logMessage = $"Kill: {expectedKillEvent.KillerId} {expectedKillEvent.VictimId} {base.Fixture.Create<int>()}: {base.Fixture.Create<string>()} killed {base.Fixture.Create<string>()} by {base.Fixture.Create<string>()}";
 
             // Act
             IGameEvent actual = base.Parser.Parse(logMessage);
 
             // Assert
-            actual.Should().BeOfType<KillEvent>();
+            actual.Should().BeEquivalentTo(expectedKillEvent);
         }
 
         [Theory]
