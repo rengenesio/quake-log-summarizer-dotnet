@@ -5,6 +5,7 @@ namespace QuakeLogSummarizer.Core.LogMessageParser
 {
     public sealed class ClientConnectLogMessageParser : AbstractLogMessageParser
     {
+        /// <inheritdoc />
         protected override string LogMessageFormat => "ClientConnect: %i";
 
         protected override ClientConnectEvent BuildEvent(Match match)

@@ -8,6 +8,7 @@ namespace QuakeLogSummarizer.Core.LogMessageParser
     {
         private readonly Regex _extractPlayerNameRegex = "n\\\\%s\\\\t".ToRegex(appendEndOfLine: false);
 
+        /// <inheritdoc />
         protected override string LogMessageFormat => "ClientUserinfoChanged: %i %s";
 
         protected override ClientUserInfoChangedEvent BuildEvent(Match match)

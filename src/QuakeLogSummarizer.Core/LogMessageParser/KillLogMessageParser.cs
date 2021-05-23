@@ -5,6 +5,7 @@ namespace QuakeLogSummarizer.Core.LogMessageParser
 {
     public sealed class KillLogMessageParser : AbstractLogMessageParser
     {
+        /// <inheritdoc />
         protected override string LogMessageFormat => "Kill: %i %i %i: %s killed %s by %s";
 
         protected override KillEvent BuildEvent(Match match)

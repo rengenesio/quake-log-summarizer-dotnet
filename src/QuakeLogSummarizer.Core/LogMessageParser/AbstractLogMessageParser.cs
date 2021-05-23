@@ -9,6 +9,10 @@ namespace QuakeLogSummarizer.Core.LogMessageParser
     {
         private readonly Regex _messageFormatRegex;
 
+        /// <summary>
+        /// The format string used as argument on G_LogPrintf functions.
+        /// Refer to 'G_LogPrintf' function references at Quake III source code https://github.com/id-Software/Quake-III-Arena
+        /// </summary>
         protected abstract string LogMessageFormat { get; }
 
         public AbstractLogMessageParser()
@@ -30,6 +34,11 @@ namespace QuakeLogSummarizer.Core.LogMessageParser
             return parsedEvent;
         }
 
+        /// <summary>
+        /// Builds an <see cref="IGameEvent"/> based on matches found using a regex based on <see cref="LogMessageFormat"/>.
+        /// </summary>
+        /// <param name="match">Regex match.</param>
+        /// <returns>A concrete event containing information parsed from log message.</returns>
         protected abstract IGameEvent BuildEvent(Match match);
     }
 }
