@@ -33,8 +33,8 @@ namespace QuakeLogSummarizer.Application
             return Host.CreateDefaultBuilder(args)
                 .ConfigureServices((_, services) =>
                     services.AddSingleton<ILogMessageExtractor, LogMessageExtractor>()
-                        .AddSingleton<ILogMessageParser, ClientConnectLogMessageParser>()
                         .AddSingleton<ILogMessageParser, InitGameLogMessageParser>()
+                        .AddSingleton<ILogMessageParser, ClientConnectLogMessageParser>()
                         .AddSingleton<ILogMessageParser, KillLogMessageParser>()
                         .AddSingleton<LogSummarizer>());
         }

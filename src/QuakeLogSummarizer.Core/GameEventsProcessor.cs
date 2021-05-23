@@ -27,6 +27,10 @@ namespace QuakeLogSummarizer.Core
                     });
                     break;
 
+                case ClientConnectEvent clientConnectEvent:
+                    this.GameList.Last().PlayerMap.TryAdd(clientConnectEvent.PlayerId, new List<string>());
+                    break;
+
                 case KillEvent:
                     this.GameList.Last().KillCount++;
                     break;

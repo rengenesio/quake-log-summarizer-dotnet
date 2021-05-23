@@ -7,9 +7,13 @@ namespace QuakeLogSummarizer.Core.Output
     {
         public LogSummary(IEnumerable<Game> gameList)
         {
-            foreach(Game game in gameList)
+            foreach (Game game in gameList)
             {
-                this.Add($"game_{game.Index}", new { total_kills = game.KillCount });
+                this.Add($"game_{game.Index}", new
+                {
+                    total_kills = game.KillCount,
+                    players = game.PlayerMap.Keys
+                });
             }
         }
     }
