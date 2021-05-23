@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace QuakeLogSummarizer.Core.Extensions
@@ -23,14 +24,21 @@ namespace QuakeLogSummarizer.Core.Extensions
         /// <param name="format">String containing format specifiers to be converted.</param>
         /// <returns>Equivalent pattern matching regex.</returns>
         /// <remarks>Input format reference: 'https://www.cplusplus.com/reference/cstdio/printf/'</remarks>
-        public static Regex ToRegex(this string format)
+        public static Regex ToRegex(this string format, bool appendEndOfLine = true)
         {
-            foreach((string formatSpecifier, string regexPattern) in RegexExtensions.FormatReplacementList)
+            string pattern = $"^{format}";
+
+            foreach ((string formatSpecifier, string regexPattern) in RegexExtensions.FormatReplacementList)
             {
-                format = format.Replace(formatSpecifier, regexPattern);
+                pattern = pattern.Replace(formatSpecifier, regexPattern);
             }
 
-            return new Regex($"^{format}$", RegexOptions.Compiled);
+            if(appendEndOfLine)
+            {
+                pattern += "$";
+            }
+
+            return new Regex(pattern, RegexOptions.Compiled);
         }
     }
 }

@@ -72,5 +72,19 @@ namespace QuakeLogSummarizer.UnitTest.Extensions
             match.Groups[1].ToString().Should().Be(expectedInteger.ToString());
             match.Groups[2].ToString().Should().Be(expectedString);
         }
+
+        [Fact]
+        private void ToRegex_When_NotAppendEndOfLine_Should_ReturnRegexWithoutEndOfLine()
+        {
+            // Arrange
+            string formatString = "Test string without any format specifier";
+            string testString = "Test string without any format specifier to test the string above without end of line.";
+
+            // Act
+            Regex actual = formatString.ToRegex(false);
+
+            // Assert
+            actual.IsMatch(testString).Should().BeTrue();
+        }
     }
 }
