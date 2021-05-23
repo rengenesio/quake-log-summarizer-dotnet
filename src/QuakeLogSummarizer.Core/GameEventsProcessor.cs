@@ -39,15 +39,15 @@ namespace QuakeLogSummarizer.Core
                     break;
 
                 case ClientConnectEvent clientConnectEvent:
-                    this.GameList.Last().PlayerMap.TryAdd(clientConnectEvent.PlayerId, new PlayerData());
+                    this.CurrentGame().PlayerMap.TryAdd(clientConnectEvent.PlayerId, new PlayerData());
                     break;
 
                 case ClientUserInfoChangedEvent clientUserInfoChangedEvent:
-                    this.GameList.Last().PlayerMap[clientUserInfoChangedEvent.PlayerId].PlayerNameList.Add(clientUserInfoChangedEvent.PlayerName);
+                    this.CurrentGame().PlayerMap[clientUserInfoChangedEvent.PlayerId].PlayerNameList.Add(clientUserInfoChangedEvent.PlayerName);
                     break;
 
                 case KillEvent killEvent:
-                    this.GameList.Last().KillCount++;
+                    this.CurrentGame().KillCount++;
 
                     // Suicides doesn't change players' score.
                     if (killEvent.KillerId == killEvent.VictimId)
@@ -63,9 +63,14 @@ namespace QuakeLogSummarizer.Core
                         scoreIncrement *= -1;
                     }
 
-                    this.GameList.Last().PlayerMap[playerId].Score += scoreIncrement;
+                    this.CurrentGame().PlayerMap[playerId].Score += scoreIncrement;
                     break;
             }
+        }
+
+        private Game CurrentGame()
+        {
+            return this.GameList.Last();
         }
     }
 }
