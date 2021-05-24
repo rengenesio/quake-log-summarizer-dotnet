@@ -1,9 +1,8 @@
 using System;
+using System.IO;
 using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
@@ -13,35 +12,39 @@ using QuakeLogSummarizer.Infrastructure;
 
 namespace QuakeLogSummarizer.Application
 {
+    /// <summary />
     public class Startup
     {
-        public IConfiguration Configuration { get; }
+        private readonly Assembly _executingAssembly = Assembly.GetExecutingAssembly();
+        
+        private string AssemblyTitle => this._executingAssembly.GetCustomAttribute<AssemblyTitleAttribute>().Title;
+        
+        private string AssemblyDescription => this._executingAssembly.GetCustomAttribute<AssemblyDescriptionAttribute>().Description;
 
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        private string AssemblyProduct => this._executingAssembly.GetCustomAttribute<AssemblyProductAttribute>().Product;
 
+        /// <summary />
         public void ConfigureServices(IServiceCollection services)
         {
-            Assembly executingAssembly = Assembly.GetExecutingAssembly();
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
 
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = executingAssembly.GetCustomAttribute<AssemblyTitleAttribute>().Title,
-                    Description = executingAssembly.GetCustomAttribute<AssemblyDescriptionAttribute>().Description,
+                    Title = this.AssemblyTitle,
+                    Description = this.AssemblyDescription,
                     Contact = new OpenApiContact()
                     {
                         Name = "Renan Rezende",
                         Url = new Uri("https://github.com/rengenesio")
                     }
                 });
-            });
 
+                string xmlFile = Path.Join(AppContext.BaseDirectory, $"{this.AssemblyProduct}.xml");
+                c.IncludeXmlComments(xmlFile, true);
+            });
+            
             services.AddSingleton<LogSummarizer>()
                 .AddSingleton<ILogMessageExtractor, LogMessageExtractor>()
                 .AddSingleton<ILogMessageParser, InitGameLogMessageParser>()
@@ -52,6 +55,7 @@ namespace QuakeLogSummarizer.Application
                 .AddScoped<IGameEventsProcessor, GameEventsProcessor>();
         }
 
+        /// <summary />
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -65,7 +69,14 @@ namespace QuakeLogSummarizer.Application
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Quake Log aaaaaaaaSummarizer v1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Quake Log Summarizer v1");
+            });
+
+            app.UseReDoc(c =>
+            {
+                c.RoutePrefix = "docs";
+                c.DocumentTitle = $"{this.AssemblyTitle} - API Docs";
+                c.SpecUrl = "/swagger/v1/swagger.json";
             });
 
             app.UseEndpoints(endpoints =>
@@ -73,5 +84,6 @@ namespace QuakeLogSummarizer.Application
                 endpoints.MapControllers();
             });
         }
+
     }
 }

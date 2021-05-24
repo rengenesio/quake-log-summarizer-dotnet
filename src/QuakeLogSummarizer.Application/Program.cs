@@ -3,8 +3,10 @@ using Microsoft.Extensions.Hosting;
 
 namespace QuakeLogSummarizer.Application
 {
+    /// <summary />
     public class Program
     {
+        /// <summary />
         public static void Main(string[] args)
         {
 
@@ -13,6 +15,7 @@ namespace QuakeLogSummarizer.Application
                 .Run();
         }
 
+        /// <summary />
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>

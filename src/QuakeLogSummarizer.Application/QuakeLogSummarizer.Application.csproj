@@ -5,14 +5,16 @@
     <TargetFramework>net5.0</TargetFramework>
 	<Title>Quake Log Summarizer</Title>
 	<Description>A .NET 5.0 application that summarizes matches from a Quake III Log file</Description>
+	<DocumentationFile>$(BaseOutputPath)/$(Configuration)/$(MSBuildProjectName).xml</DocumentationFile>
   </PropertyGroup>
-
+	
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
     <PackageReference Include="NullGuard.Fody" Version="3.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.1.4" />
+    <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" Version="6.1.4" />
   </ItemGroup>
 
   <ItemGroup>
