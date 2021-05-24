@@ -2,8 +2,9 @@
 using System.Linq;
 using System.Text.Json.Serialization;
 using QuakeLogSummarizer.Core.Converters;
+using QuakeLogSummarizer.Core.Model;
 
-namespace QuakeLogSummarizer.Core.Model.Output
+namespace QuakeLogSummarizer.Application.Controllers.DataContracts.V1
 {
     public sealed class GameSummary
     {
@@ -22,9 +23,9 @@ namespace QuakeLogSummarizer.Core.Model.Output
 
         public GameSummary(Game game)
         {
-            this.TotalKills = game.KillCount;
-            this.Players = game.PlayerMap.Values.Select(p => p.PlayerNameList.Last());
-            this.Kills = game.PlayerMap.Values.ToList()
+            TotalKills = game.KillCount;
+            Players = game.PlayerMap.Values.Select(p => p.PlayerNameList.Last());
+            Kills = game.PlayerMap.Values.ToList()
                                 .Select(p => (p.PlayerNameList.Last(), p.Score));
         }
     }

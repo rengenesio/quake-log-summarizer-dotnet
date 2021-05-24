@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using QuakeLogSummarizer.Core.Model;
 
-namespace QuakeLogSummarizer.Core.Model.Output
+namespace QuakeLogSummarizer.Application.Controllers.DataContracts.V1
 {
     public sealed class LogSummary : Dictionary<string, GameSummary>
     {
@@ -8,7 +9,7 @@ namespace QuakeLogSummarizer.Core.Model.Output
         {
             foreach (Game game in gameList)
             {
-                this.Add($"game_{game.Index}", new GameSummary(game));
+                Add($"game_{game.Index}", new GameSummary(game));
             }
         }
     }

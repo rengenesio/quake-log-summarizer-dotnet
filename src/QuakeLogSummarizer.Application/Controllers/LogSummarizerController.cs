@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using QuakeLogSummarizer.Application.Controllers.DataContracts.V1;
 using QuakeLogSummarizer.Core;
 using QuakeLogSummarizer.Core.Model;
-using QuakeLogSummarizer.Core.Model.Output;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace QuakeLogSummarizer.Application.Controllers
