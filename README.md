@@ -4,7 +4,7 @@ This repository contains a multiplatform C# console application that parses a [Q
 
 ## Match Summary
 
-The application reads a server log and prints a [JSON](https://www.json.org/) object that summarizes each match (not an JSON array contaning all matches summaries). This is a sample:
+The application reads a Quake III server log and prints a [JSON](https://www.json.org/) object that summarizes each match (not an JSON array contaning all matches summaries). This is a sample:
 
 ```json
 {
@@ -79,6 +79,8 @@ This is a multiplatform application. The following commands may be used on Linux
 
 ### Running Tests
 
+#### Using .NET 5.0 SDK
+
 ```bash
 [quake-log-summarizer-dotnet]$ dotnet test
 ```
@@ -102,15 +104,15 @@ This is a multiplatform application. The following commands may be used on Linux
 The application's server hosts a REST API on default Kestrel port `5000`. The `https` and `ipv6` support are disabled.
 The application generates a [Swagger](https://swagger.io/) JSON documentation:
 
-`http://localhost:5000/swagger/v1/swagger.json`
+`http://{hostAddress}:5000/swagger/v1/swagger.json`
 
 The Swagger documentation is used to generate a friendly UI used to test requests:
 
-`http://localhost:5000/swagger`
+`http://{hostAddress}:5000/swagger`
 
 The Swagger documentation is used to generate a friendly documentation page using ReDoc:
 
-`http://localhost:5000/docs`
+`http://{hostAddress}:5000/docs`
 
 Please refer to the links above to get the API documentation.
 

@@ -8,6 +8,7 @@ using QuakeLogSummarizer.Core.Model;
 
 namespace QuakeLogSummarizer.Application.Controllers
 {
+    // TODO: Use a centralized prefix provider to automatically add the 'api/' prefix on all routes.
     /// <summary>
     /// Controller to execute log file operations.
     /// </summary>
