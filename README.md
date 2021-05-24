@@ -88,9 +88,7 @@ This structure is organized as following:
 - :file_folder: **src** - Contains the executable source code projects.
     - :file_folder: **QuakeLogSummarizer.Application** - Project containing the console application and dependency injection code.
     - :file_folder: **QuakeLogSummarizer.Core** - Project containing the application's core processing rules.
-    - :file_folder: **QuakeLogSummarizer.Infrastructure** - Project containing the integrations with external resources (e.g: filesystem, REST API's).
 - :file_folder: **test** - Contains the executable source code projects.
-    - :file_folder: **QuakeLogSummarizer.IntegrationTest** - Project containing tests that interacts with a external resources.
     - :file_folder: **QuakeLogSummarizer.UnitTest** - Project containing tests that runs only with in memory objects.
 - :page_facing_up: **Directory.Build.Props** - File containing common build specifications. Avoids duplicated code on `csproj` files.
 - :page_facing_up: **QuakeLogSummarizer.sln** - Solution file.

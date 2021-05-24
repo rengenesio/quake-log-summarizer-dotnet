@@ -19,7 +19,7 @@ namespace QuakeLogSummarizer.Infrastructure
         {
             if(this._streamReader == null)
             {
-                throw new InvalidOperationException("Stream is not initialized. Method 'BeginReadJob' should be executed before read log records.");
+                throw new InvalidOperationException("Method 'BeginReadJob' should be executed before read log records.");
             }
 
             return await this._streamReader.ReadLineAsync().ConfigureAwait(false);
