@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,7 +20,12 @@ namespace QuakeLogSummarizer.Application
             using IHost host = CreateHostBuilder(args).Build();
 
             LogSummarizer summarizer = host.Services.GetRequiredService<LogSummarizer>();
-            IEnumerable<Game> gameList = await summarizer.Summarize(args[0]);
+
+            IEnumerable<Game> gameList;
+            using (Stream stream = new FileStream(args[0], FileMode.Open, FileAccess.Read))
+            {
+                gameList = await summarizer.SummarizeAsync(stream).ConfigureAwait(false);
+            }
 
             LogSummary summary = new LogSummary(gameList);
 

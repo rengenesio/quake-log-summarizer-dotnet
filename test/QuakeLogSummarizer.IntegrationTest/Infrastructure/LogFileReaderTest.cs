@@ -20,23 +20,23 @@ namespace QuakeLogSummarizer.IntegrationTest.Infrastructure
         }
 
         [Fact]
-        private void BeginReadJob_When_FileNotExists_Should_ThrowFileNotFoundException()
+        private void BeginReadJob_When_StreamIsNull_Should_ThrowArgumentNullException()
         {
             // Act
-            Action act = () => this._reader.BeginReadJob(this._fixture.Create<string>());
+            Action act = () => this._reader.BeginReadJob(null);
 
             // Assert
-            act.Should().ThrowExactly<FileNotFoundException>();
+            act.Should().ThrowExactly<ArgumentNullException>();
         }
 
         [Fact]
-        private void BeginReadJob_When_FileExists_Should_NotThrow()
+        private void BeginReadJob_When_StreamIsValid_Should_NotThrow()
         {
             // Arrange
-            string fileFullname = this.CreateTempFile();
+            Stream stream = new MemoryStream();
 
             // Act
-            Action act = () => this._reader.BeginReadJob(fileFullname);
+            Action act = () => this._reader.BeginReadJob(stream);
 
             // Assert
             act.Should().NotThrow();
@@ -53,11 +53,11 @@ namespace QuakeLogSummarizer.IntegrationTest.Infrastructure
         }
 
         [Fact]
-        private void ReadLogRecord_When_EmptyFile_Should_ReturnNull()
+        private void ReadLogRecord_When_EmptyStream_Should_ReturnNull()
         {
             // Arrange
-            string fileFullname = this.CreateTempFile();
-            this._reader.BeginReadJob(fileFullname);
+            Stream stream = new MemoryStream();
+            this._reader.BeginReadJob(stream);
 
             // Act
             string actual = this._reader.ReadLogRecordAsync().GetAwaiter().GetResult();
@@ -67,24 +67,36 @@ namespace QuakeLogSummarizer.IntegrationTest.Infrastructure
         }
 
         [Fact]
-        private void ReadLogRecord_When_FileHasRecords_Should_ReturnAllRecords()
+        private void ReadLogRecord_When_StreamHasRecords_Should_ReturnAllRecords()
         {
-            // Arrange
-            IEnumerable<string> recordList = this._fixture.CreateMany<string>();
-            string fileFullname = this.CreateTempFile(recordList);
-
-            this._reader.BeginReadJob(fileFullname);
-            IList<string> actualList = new List<string>();
-            string actual;
-
-            // Act
-            while ((actual = this._reader.ReadLogRecordAsync().GetAwaiter().GetResult()) != null)
+            using (Stream stream = new MemoryStream())
+            using (StreamWriter streamWriter = new StreamWriter(stream))
             {
-                actualList.Add(actual);
-            }
+                // Arrange
+                IEnumerable<string> recordList = this._fixture.CreateMany<string>();
 
-            // Assert
-            actualList.Should().BeEquivalentTo(recordList);
+                foreach (string record in recordList)
+                {
+                    streamWriter.WriteLine(record);
+                }
+                
+                streamWriter.Flush();
+                stream.Seek(0, SeekOrigin.Begin);
+
+                this._reader.BeginReadJob(stream);
+
+                IList<string> actualList = new List<string>();
+                string actual;
+
+                // Act
+                while ((actual = this._reader.ReadLogRecordAsync().GetAwaiter().GetResult()) != null)
+                {
+                    actualList.Add(actual);
+                }
+
+                // Assert
+                actualList.Should().BeEquivalentTo(recordList);
+            }
         }
 
         private string CreateTempFile(IEnumerable<string> recordList = null)
@@ -93,14 +105,7 @@ namespace QuakeLogSummarizer.IntegrationTest.Infrastructure
 
             if (recordList != null)
             {
-                using (Stream stream = new FileStream(fileFullname, FileMode.Open, FileAccess.Write))
-                using (StreamWriter streamWriter = new StreamWriter(stream))
-                {
-                    foreach (string record in recordList)
-                    {
-                        streamWriter.WriteLine(record);
-                    }
-                }
+                
             }
 
             return fileFullname;

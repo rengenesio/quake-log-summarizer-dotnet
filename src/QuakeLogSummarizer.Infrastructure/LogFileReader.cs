@@ -7,13 +7,11 @@ namespace QuakeLogSummarizer.Infrastructure
 {
     public sealed class LogFileReader : ILogFileReader
     {
-        private Stream _stream;
         private StreamReader _streamReader;
 
-        public void BeginReadJob(string logFileFullname)
+        public void BeginReadJob(Stream fileStream)
         {
-            this._stream = new FileStream(logFileFullname, FileMode.Open, FileAccess.Read);
-            this._streamReader = new StreamReader(this._stream);
+            this._streamReader = new StreamReader(fileStream);
         }
 
         [return: AllowNull]
@@ -30,7 +28,6 @@ namespace QuakeLogSummarizer.Infrastructure
         public void Dispose()
         {
             this._streamReader.Dispose();
-            this._stream.Dispose();
         }
     }
 }

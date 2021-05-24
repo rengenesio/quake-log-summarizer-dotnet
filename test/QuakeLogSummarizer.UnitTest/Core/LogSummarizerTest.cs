@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoFixture;
+using AutoFixture.Kernel;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
@@ -28,7 +30,7 @@ namespace QuakeLogSummarizer.UnitTest.Core
         public LogSummarizerTest()
         {
             this._fixture = new Fixture();
-
+            
             this._logMessageExtractorMock = new Mock<ILogMessageExtractor>();
             this._logFileReaderMock = new Mock<ILogFileReader>();
             this._gameEventsProcessorMock = new Mock<IGameEventsProcessor>();
@@ -63,7 +65,7 @@ namespace QuakeLogSummarizer.UnitTest.Core
         private void Summarize_When_NullFileName_Should_ThrowArgumentNullException()
         {
             // Act
-            Action act = () => _summarizer.Summarize(null).GetAwaiter().GetResult();
+            Action act = () => this._summarizer.SummarizeAsync(null).GetAwaiter().GetResult();
 
             // Assert
             act.Should().ThrowExactly<ArgumentNullException>();
@@ -72,8 +74,11 @@ namespace QuakeLogSummarizer.UnitTest.Core
         [Fact]
         private void Summarize_When_EmptyLogFile_Should_NotProcessAnyEvent()
         {
+            // Arrange
+            Stream stream = new MemoryStream();
+
             // Act
-            IEnumerable<Game> actual = this._summarizer.Summarize(new Fixture().Create<string>()).GetAwaiter().GetResult();
+            IEnumerable<Game> actual = this._summarizer.SummarizeAsync(stream).GetAwaiter().GetResult();
 
             // Assert
             actual.Should().BeEmpty();
@@ -83,6 +88,8 @@ namespace QuakeLogSummarizer.UnitTest.Core
         private void Summarize_Should_ReadLogRecordFromFileAndExtractLogMessageAndParseLogMessageAndProcessParsedEvent()
         {
             // Arrange
+            Stream stream = new MemoryStream();
+            
             string logRecord = this._fixture.Create<string>();
             string logMessage = this._fixture.Create<string>();
             IGameEvent expectedGameEvent = Mock.Of<IGameEvent>();
@@ -95,7 +102,7 @@ namespace QuakeLogSummarizer.UnitTest.Core
                 .Returns(expectedGameEvent));
 
             // Act
-            IEnumerable<Game> actual = this._summarizer.Summarize(new Fixture().Create<string>()).GetAwaiter().GetResult();
+            IEnumerable<Game> actual = this._summarizer.SummarizeAsync(stream).GetAwaiter().GetResult();
 
             // Assert
             this._gameEventsProcessorMock.Verify(p => p.Process(expectedGameEvent), Times.Once);
@@ -105,6 +112,8 @@ namespace QuakeLogSummarizer.UnitTest.Core
         private void Summarize_When_MoreThanOneParserReturnsEvent_Should_ThrowInvalidOperationException()
         {
             // Arrange
+            Stream stream = new MemoryStream();
+
             this._logMessageParserMockList.Add(new Mock<ILogMessageParser>());
             this._logMessageParserMockList.ForEach(p => p.Setup(p => p.Parse(It.IsAny<string>()))
                 .Returns(Mock.Of<IGameEvent>()));
@@ -114,7 +123,7 @@ namespace QuakeLogSummarizer.UnitTest.Core
                 .Returns(this._fixture.Create<string>());
 
             // Act
-            Action act = () => this._summarizer.Summarize(new Fixture().Create<string>()).GetAwaiter().GetResult();
+            Action act = () => this._summarizer.SummarizeAsync(stream).GetAwaiter().GetResult();
 
             // Assert
             act.Should().ThrowExactly<InvalidOperationException>();
@@ -127,7 +136,7 @@ namespace QuakeLogSummarizer.UnitTest.Core
             {
                 sequence = sequence.ReturnsAsync(logRecord);
             }
-            
+
             sequence.ReturnsAsync((string)null);
         }
     }
