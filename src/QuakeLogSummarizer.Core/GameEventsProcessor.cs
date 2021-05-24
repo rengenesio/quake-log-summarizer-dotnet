@@ -20,6 +20,7 @@ namespace QuakeLogSummarizer.Core
 
         private int _gameIndex = 0;
 
+        // TODO: Avoid expose this data as property. It allows another class to change it.
         public IList<Game> GameList { get; }
 
         public GameEventsProcessor()
