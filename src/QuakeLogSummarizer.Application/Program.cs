@@ -9,7 +9,6 @@ namespace QuakeLogSummarizer.Application
         /// <summary />
         public static void Main(string[] args)
         {
-
             Program.CreateHostBuilder(args)
                 .Build()
                 .Run();
@@ -21,7 +20,7 @@ namespace QuakeLogSummarizer.Application
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseUrls("http://*:5000");
+                    webBuilder.UseUrls("http://0.0.0.0:5000");
                 });
     }
 }
