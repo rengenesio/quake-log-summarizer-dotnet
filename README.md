@@ -122,7 +122,7 @@ This structure is organized as following:
 
 - :file_folder: **build** - Directory created when building the source code. Stores all executables and temporary build objects.
 - :file_folder: **src** - Contains the executable source code projects.
-    - :file_folder: **QuakeLogSummarizer.Application** - Project containing the console application and dependency injection code.
+    - :file_folder: **QuakeLogSummarizer.Application** - Project containing a self hosted application's server, API controllers, API data contracts and dependency injection code.
     - :file_folder: **QuakeLogSummarizer.Core** - Project containing the application's core processing rules.
 - :file_folder: **test** - Contains the executable source code projects.
     - :file_folder: **QuakeLogSummarizer.UnitTest** - Project containing tests that runs only with in memory objects.
