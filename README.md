@@ -51,34 +51,68 @@ The application reads a server log and prints a [JSON](https://www.json.org/) ob
 
 ### Dependencies
 
-This application depends on:
-- [.NET 5.0](https://dotnet.microsoft.com/download)
-  - SDK (to build and run tests)
-  - Runtime (to run application)
+This application dependencies are divided into groups. Choose one of them to each group:
+- Build
+  - [.NET 5.0 SDK](https://dotnet.microsoft.com/download)
+  - [Docker](https://www.docker.com/)
+- Run tests:
+  - [.NET 5.0 SDK](https://dotnet.microsoft.com/download)
+- Run application:
+  - [.NET 5.0 Runtime](https://dotnet.microsoft.com/download)
+  - [Docker](https://www.docker.com/)
 
 This is a multiplatform application. The following commands may be used on Linux or Windows operating systems.
 
 ### Building
 
-Assuming the .NET SDK is installed and the `dotnet` CLI is included in user's path:
+#### Using .NET 5.0 SDK
 
 ```bash
-$ dotnet build
+[quake-log-summarizer-dotnet]$ dotnet build
+```
+
+#### Using Docker
+
+```
+[quake-log-summarizer-dotnet]$ docker build -t quake-log-summarizer .
 ```
 
 ### Running Tests
 
 ```bash
-$ dotnet test
+[quake-log-summarizer-dotnet]$ dotnet test
 ```
 
 ### Running Application
 
+#### Using .NET 5.0 SDK
+
 ```bash
-$ dotnet build/QuakeLogSummarizer.Application/Debug/QuakeLogSummarizer.Application.dll LOG_FILE
+[quake-log-summarizer-dotnet]$ dotnet build/QuakeLogSummarizer.Application/Debug/QuakeLogSummarizer.Application.dll
 ```
 
-The application parses `LOG_FILE` and prints all matches summaries in JSON format (one JSON per match).
+#### Using Docker
+
+```bash
+[quake-log-summarizer-dotnet]$ docker run -p 0.0.0.0:5000:5000 bla
+```
+
+### Using API
+
+The application's server hosts a REST API on default Kestrel port `5000`. The `https` and `ipv6` support are disabled.
+The application generates a [Swagger](https://swagger.io/) JSON documentation:
+
+`http://localhost:5000/swagger/v1/swagger.json`
+
+The Swagger documentation is used to generate a friendly UI used to test requests:
+
+`http://localhost:5000/swagger`
+
+The Swagger documentation is used to generate a friendly documentation page using ReDoc:
+
+`http://localhost:5000/docs`
+
+Please refer to the links above to get the API documentation.
 
 ## Project Structure
 
@@ -98,6 +132,7 @@ This structure is organized as following:
 
 The following may be future enhancements:
 
+- Improve Readme.
 - Improve application JSON response to include all player's name inside a match.
 - Warn when a match log is truncated.
 - Change match summary object to improve integrations (read the current object may be painful).
