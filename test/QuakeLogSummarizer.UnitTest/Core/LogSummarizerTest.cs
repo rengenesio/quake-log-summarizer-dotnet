@@ -122,7 +122,7 @@ namespace QuakeLogSummarizer.UnitTest.Core
 
         private void SetupSequenceLogFileReader(params string[] logRecords)
         {
-            ISetupSequentialResult<Task<string>> sequence = this._logFileReaderMock.SetupSequence(r => r.ReadLogRecord());
+            ISetupSequentialResult<Task<string>> sequence = this._logFileReaderMock.SetupSequence(r => r.ReadLogRecordAsync());
             foreach (string logRecord in logRecords)
             {
                 sequence = sequence.ReturnsAsync(logRecord);

@@ -17,8 +17,13 @@ namespace QuakeLogSummarizer.Infrastructure
         }
 
         [return: AllowNull]
-        public async Task<string> ReadLogRecord()
+        public async Task<string> ReadLogRecordAsync()
         {
+            if(this._streamReader == null)
+            {
+                throw new InvalidOperationException("Stream is not initialized. Method 'BeginReadJob' should be executed before read log records.");
+            }
+
             return await this._streamReader.ReadLineAsync();
         }
 

@@ -7,7 +7,7 @@ namespace QuakeLogSummarizer.Infrastructure
     {
         void BeginReadJob(string logFileFullname);
         
-        Task<string> ReadLogRecord();
+        Task<string> ReadLogRecordAsync();
 
         void Dispose();
     }

@@ -31,7 +31,7 @@ namespace QuakeLogSummarizer.Core
 
             string logRecord;
             reader.BeginReadJob(logFileFullname);
-            while ((logRecord = await reader.ReadLogRecord()) != null)
+            while ((logRecord = await reader.ReadLogRecordAsync()) != null)
             {
                 string logMessage = this._logMessageExtractor.Extract(logRecord);
 
