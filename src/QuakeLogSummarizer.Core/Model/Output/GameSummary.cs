@@ -23,9 +23,9 @@ namespace QuakeLogSummarizer.Core.Model.Output
         public GameSummary(Game game)
         {
             this.TotalKills = game.KillCount;
-            this.Players = game.PlayerMap.Values.Select(p => p.PlayerNameList.First());
+            this.Players = game.PlayerMap.Values.Select(p => p.PlayerNameList.Last());
             this.Kills = game.PlayerMap.Values.ToList()
-                                .Select(p => (p.PlayerNameList.First(), p.Score));
+                                .Select(p => (p.PlayerNameList.Last(), p.Score));
         }
     }
 }
