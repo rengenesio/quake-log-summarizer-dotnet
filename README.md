@@ -1,6 +1,6 @@
 # Quake Log Summarizer - .NET
 
-This repository contains a C# console application that parses a [Quake III Arena](https://github.com/id-Software/Quake-III-Arena) server log to summarize matches statistics.
+This repository contains a multiplatform C# console application that parses a [Quake III Arena](https://github.com/id-Software/Quake-III-Arena) server log to summarize matches statistics.
 
 ## Match Summary
 
@@ -56,6 +56,8 @@ This application depends on:
   - SDK (to build and run tests)
   - Runtime (to run application)
 
+This is a multiplatform application. The following commands may be used on Linux or Windows operating systems.
+
 ### Building
 
 Assuming the .NET SDK is installed and the `dotnet` CLI is included in user's path:
@@ -72,7 +74,9 @@ $ dotnet test
 
 ## Running Application
 
-TODO.
+```bash
+$ dotnet build/QuakeLogSummarizer.Application/Debug/QuakeLogSummarizer.Application.dll LOG_FILE
+```
 
 The application parses `LOG_FILE` and prints all matches summaries in JSON format (one JSON per match).
 
