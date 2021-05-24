@@ -12,7 +12,7 @@ namespace QuakeLogSummarizer.Application.Controllers
     /// Controller to execute log file operations.
     /// </summary>
     [ApiController]
-    [Route("logs")]
+    [Route("api/v1/logs")]
     public sealed class LogSummarizerController : ControllerBase
     {
         private readonly LogSummarizer _logSummarizer;
