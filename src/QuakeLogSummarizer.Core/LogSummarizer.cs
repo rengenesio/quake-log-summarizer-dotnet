@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,9 +25,9 @@ namespace QuakeLogSummarizer.Core
         public async Task<IEnumerable<Game>> Summarize(string logFileFullname)
         {
             using IServiceScope scope = this._serviceScopeFactory.CreateScope();
-            using LogFileReader reader = scope.ServiceProvider.GetRequiredService<LogFileReader>();
+            using ILogFileReader reader = scope.ServiceProvider.GetRequiredService<ILogFileReader>();
 
-            GameEventsProcessor gameEventsProcessor = scope.ServiceProvider.GetRequiredService<GameEventsProcessor>();
+            IGameEventsProcessor gameEventsProcessor = scope.ServiceProvider.GetRequiredService<IGameEventsProcessor>();
 
             string logRecord;
             reader.BeginReadJob(logFileFullname);

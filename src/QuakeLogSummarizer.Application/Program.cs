@@ -33,14 +33,14 @@ namespace QuakeLogSummarizer.Application
         {
             return Host.CreateDefaultBuilder(args)
                 .ConfigureServices((_, services) =>
-                    services.AddSingleton<ILogMessageExtractor, LogMessageExtractor>()
+                    services.AddSingleton<LogSummarizer>()
+                        .AddSingleton<ILogMessageExtractor, LogMessageExtractor>()
                         .AddSingleton<ILogMessageParser, InitGameLogMessageParser>()
                         .AddSingleton<ILogMessageParser, ClientConnectLogMessageParser>()
                         .AddSingleton<ILogMessageParser, ClientUserInfoChangedLogMessageParser>()
                         .AddSingleton<ILogMessageParser, KillLogMessageParser>()
-                        .AddSingleton<LogSummarizer>()
-                        .AddScoped<LogFileReader>()
-                        .AddScoped<GameEventsProcessor>());
+                        .AddScoped<ILogFileReader, LogFileReader>()
+                        .AddScoped<IGameEventsProcessor, GameEventsProcessor>());
         }
     }
 }

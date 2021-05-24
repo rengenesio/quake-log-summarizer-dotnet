@@ -5,7 +5,7 @@ using QuakeLogSummarizer.Core.Model;
 
 namespace QuakeLogSummarizer.Core
 {
-    public sealed class GameEventsProcessor
+    public sealed class GameEventsProcessor : IGameEventsProcessor
     {
         /// <summary>
         /// Player identifier assigned to the 'world' player. Extracted from 'ENTITYNUM_WORLD' constant from Quake III source code.
@@ -17,7 +17,7 @@ namespace QuakeLogSummarizer.Core
         /// #define	ENTITYNUM_WORLD		(MAX_GENTITIES-2)
         /// </remarks>
         private const int WorldPlayerId = 1022;
-    
+
         private int _gameIndex = 0;
 
         public IList<Game> GameList { get; }
@@ -29,7 +29,7 @@ namespace QuakeLogSummarizer.Core
 
         public void Process(IGameEvent gameEvent)
         {
-            switch(gameEvent)
+            switch (gameEvent)
             {
                 case InitGameEvent:
                     this.GameList.Add(new Game()

@@ -5,7 +5,7 @@ using NullGuard;
 
 namespace QuakeLogSummarizer.Infrastructure
 {
-    public sealed class LogFileReader : IDisposable
+    public sealed class LogFileReader : ILogFileReader
     {
         private Stream _stream;
         private StreamReader _streamReader;
