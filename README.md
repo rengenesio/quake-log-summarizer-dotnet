@@ -134,6 +134,7 @@ This structure is organized as following:
 
 The following may be future enhancements:
 
+- Create functional/acceptance tests.
 - Improve Readme.
 - Improve application JSON response to include all player's name inside a match.
 - Warn when a match log is truncated.
